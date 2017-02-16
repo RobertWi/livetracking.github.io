@@ -1,6 +1,105 @@
-<h1>livetracking.io</h1>
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Live Tracking - livetracking.io</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-static-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/">livetracking.io</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="https://my.livetracking.io/dashboard">Login</a></li>
+				<li><a href="https://my.livetracking.io/register"><b>Register</b></a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container">
 
-<p>coming soon</p>
+<div class="jumbotron">
+
+<h1>Live Tracking for Data Nerds</h1>
+<p>
+	livetracking.io is an free and open source live tracking service.
+	It's useful for recording data and performing analytics in real-time.
+	It is designed to track athletes in real time.
+	In addition, it is very easy to use and can be quickly integrated in existing applications.
+</p>
 
 <p>
-<a href="imprint.html">Impressum</a></p>
+	<a href="demo.html" class="btn btn-primary btn-lg" role="button">
+		<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+		Demo
+	</a>
+	<a href="https://my.livetracking.io/register" class="btn btn-success btn-lg" role="button">
+		<span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+		Register
+	</a>
+
+</p>
+</div> <!-- // jumbotron -->
+
+<div class="page-header">
+	<h2>Developers Welcome</h2>
+</div>
+
+<p>
+You can use livetracking.io as the back end for live tracking.
+It is very easy to integrate into existing apps.
+The transfer is done via an HTTP API.
+You will find more details in the <a href="https://github.com/livetracking/livetracking/wiki">documentation</a>.
+</p>
+
+<div class="page-header">
+	<h2>Features</h2>
+</div>
+
+<p>
+This application is very much based on InfluxDB. So you have all the advantages of a very fast time series database.
+It aims to answer queries in real-time.
+That means every data point is indexed as it comes in and is immediately available in queries that should return in less than 100ms.
+</p>
+
+<p>
+Each user comes with his own InfluxDB database.
+Only you as an owner can write to the database.
+You can give other users read rights to your live tracking database.
+Currently you can save 8 hours of data.
+
+<hr>
+<footer>
+	<p class="text-muted">
+		&copy; Nils Knieling
+		|
+		This Software is <a href="https://github.com/livetracking">Open Source</a>
+		|
+		<a href="https://github.com/livetracking/livetracking/wiki">API</a>
+		<script>
+			emailE=('in' + 'put' + '@' + 'live' + 'tracking' + '.io')
+			document.write('| <a href="mailto:' + emailE + '">Contact</a>')
+		</script>
+		|
+		<a href="https://livetracking.io/imprint.html">Imprint</a>
+	</p>
+</footer>
+
+</div> <!-- // container -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
