@@ -612,7 +612,7 @@ function query_result(json){
 				// battery
 				$("#last_battery").html(battery(json['results']['0']['series']['0']['values']['0']['1']))
 				// gsm_signal
-				$("#last_gsm_signal").html(gsm_signal(json['results']['2']['series']['0']['values']['0']['2']))
+				$("#last_gsm_signal").html(gsm_signal(json['results']['0']['series']['0']['values']['0']['2']))
 			}
 		}
 		// samples
