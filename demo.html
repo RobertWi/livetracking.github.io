@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Demo - livetracking.io</title>
+<title>demo - livetracking.io</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -36,7 +36,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand logo" href="https://livetracking.io/">
+			<a class="navbar-brand logo" href="/">
 				livetracking.io
 			</a>
 		</div>
@@ -64,16 +64,23 @@
 <div class="row">
 	<div class="col-md-12">
 		<div class="page-header">
-			<h1>Demo</h1>
+			<h1>
+				demo
+							</h1>
 		</div>
 	</div>
 </div>
 
+<!-- Alerts -->
 <div class="row">
 <div class="col-md-12">
 	<div class="alert alert-info" role="alert" id="waiting">
 		<i class="fa fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
 		Waiting for data...
+	</div>
+	<div class="alert alert-danger hidden" role="alert" id="not-shared">
+		<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+		The user has not granted you reading rights.
 	</div>
 	<div class="alert alert-danger hidden" role="alert" id="error">
 		<i class="fa fa-exclamation-circle" aria-hidden="true"></i>
@@ -81,9 +88,10 @@
 	</div>
 </div>
 </div>
+<!-- // Alerts -->
 
+<!-- Last -->
 <div class="row">
-	
 	<div class="hidden col-lg-4" id="last">
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -92,7 +100,6 @@
 			</div>
 		</div>
 	</div>
-	
 	<div class="hidden col-md-2" id="battery">
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -110,9 +117,10 @@
 			</div>
 		</div>
 	</div>
-	
 </div>
+<!-- // Last -->
 
+<!-- Avg / Min / Max -->
 <div class="row">
 
 <div class="col-lg-6 col-md-12">
@@ -268,21 +276,41 @@
 
 </div> <!-- // col -->
 
-</div> <!-- row -->
+</div> 
+<!-- // Avg / Min / Max -->
 
+<!-- Map -->
 <div class="row">
 <div class="col-md-12"><div id="samples-map"></div></div>
 </div>
+<!-- // Map -->
 
+<!-- Chart -->
 <div class="row">
-<div class="col-md-12"><div id="samples-chart"></div></div>
+<div class="col-md-12"><div id="samples-chart" class="hidden"></div></div>
 </div>
+<!-- // Chart -->
 
+<hr>
+<footer>
+	<p class="text-muted">
+		&copy; 2017 <a href="https://github.com/Cyclenerd">Nils Knieling</a>
+		|
+		This Software is <a href="https://github.com/livetracking">Open Source</a>
+		|
+		<a href="https://github.com/livetracking/livetracking/wiki">API</a>
+		<script>
+			emailE=('in' + 'put' + '@' + 'live' + 'tracking' + '.io')
+			document.write('| <a href="mailto:' + emailE + '">Contact</a>')
+		</script>
+		|
+		<a href="https://livetracking.io/imprint.html">Imprint</a>
+	</p>
+</footer>
 </div> <!-- // container -->
 
 <script>
 var username = 'demo';
-var token = btoa('public:livetracking'); // login
 var data_chart = [];
 var data_map   = [];
 var axisLeft   = 0;
@@ -298,6 +326,7 @@ var last_timestamp = 'now() - 30m';
 var samples_chart = new AmCharts.AmSerialChart();
 samples_chart.dataProvider = data_chart;
 samples_chart.categoryField = "time";
+samples_chart.fontFamily = '"Helvetica Neue", Helvetica, Arial, sans-serif';
 // Axes
 samples_chart.categoryAxis = {
 	startOnAxis: true,
@@ -608,6 +637,7 @@ function pwr_w(watt) {
 
 function online(){
 	$("#error").addClass("hidden");
+	$("#not-shared").addClass("hidden");
 	document.title = '▶️️ ' + username + ' - livetracking.io';
 }
 
@@ -615,6 +645,13 @@ function offline(){
 	$("#waiting").addClass("hidden");
 	$("#error").removeClass("hidden");
 	document.title = '⏸️ ' + username + ' - livetracking.io';
+}
+
+function notShared(){
+	$("#waiting").addClass("hidden");
+	$("#error").addClass("hidden");
+	$("#not-shared").removeClass("hidden");
+	document.title = '🛑 ' + username + ' - livetracking.io';
 }
 
 
@@ -627,18 +664,23 @@ function query() {
 	$.ajax({
 		dataType: "json",
 		method: "GET",
-		beforeSend: function (xhr) {
-			xhr.setRequestHeader ("Authorization", "Basic " + token);
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader ("Authorization", "Basic " + btoa('public:livetracking'));
 		},
 		url: 'https://output.livetracking.io/query',
-		data: {
+				data: {
 			db: username,
 			epoch: 's',
 			q: get_query_sql()
 		},
 		crossDomain: true
 	}).error(function(xhr){
-		offline();
+		var status = xhr.status;
+		if (status == 403) {
+			notShared();
+		} else {
+			offline();
+		}
 	}).success(function(json){
 		online();
 		query_result(json);
@@ -711,6 +753,7 @@ function query_result(json){
 			$("#last").removeClass("hidden");
 			$("#last_time").html(data_chart[data_chart.length-1]['time']);
 			// Update chart
+			$("#samples-chart").removeClass("hidden");
 			samples_chart.validateData();
 			// Update map
 			marker.removeFrom(map); // Remove marker
