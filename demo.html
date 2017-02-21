@@ -670,22 +670,22 @@ function get_query_sql() {
 	'SELECT MIN(pwr_w), MEAN(pwr_w), MAX(pwr_w) FROM samples WHERE time > '+       last_timestamp +' - 5m;' + // results: 23, 5 min
 	'SELECT MIN(pwr_w), MEAN(pwr_w), MAX(pwr_w) FROM samples WHERE time > '+       last_timestamp +' - 10m;'+ // results: 24, 10 min
 	'SELECT '+ // results: 25, values: n
-	'lat,'+        // 1
-	'lng,'+        // 2
-	'acc_m,'+      // 3
-	'battery,'+    // 4
-	'gsm_signal,'+ // 5
-	'temp_c,'+     // 6
-	'spd_kph,'+    // 7
-	'alt_m,'+      // 8
-	'hr_bpm,'+     // 9
-	'cad_rpm,'+    // 10
-	'pwr_w,'+      // 11
-	'pwr_w_l,'+    // 12
-	'pwr_w_r'+     // 13
+	'MEAN(lat),'+        // 1
+	'MEAN(lng),'+        // 2
+	'MEAN(acc_m),'+      // 3
+	'MEAN(battery),'+    // 4
+	'MEAN(gsm_signal),'+ // 5
+	'MEAN(temp_c),'+     // 6
+	'MEAN(spd_kph),'+    // 7
+	'MEAN(alt_m),'+      // 8
+	'MEAN(hr_bpm),'+     // 9
+	'MEAN(cad_rpm),'+    // 10
+	'MEAN(pwr_w),'+      // 11
+	'MEAN(pwr_w_l),'+    // 12
+	'MEAN(pwr_w_r)'+     // 13
 	' FROM samples'+
-	' WHERE time > ' + last_timestamp; // WHERE time > last_timestamp
-	
+	' WHERE time > ' + last_timestamp + // WHERE time > last_timestamp
+	' GROUP BY time(1s) fill(none)'; // https://docs.influxdata.com/influxdb/v1.2/query_language/data_exploration/#group-by-time-intervals-and-fill
 	return query_sql;
 }
 
@@ -858,6 +858,9 @@ function query_result(json){
 		if (json['results']['0']['series']) {
 			if (json['results']['0']['series']['0']['values']) {
 				$("#last").removeClass("hidden");
+				$("#mean").removeClass("hidden");
+				$("#min").removeClass("hidden");
+				$("#max").removeClass("hidden");
 				$("#waiting").addClass("hidden");
 				// battery
 				if (json['results']['0']['series']['0']['values']['0']['5']){
@@ -912,6 +915,9 @@ function query_result(json){
 			}
 		} else {
 			$("#last").addClass("hidden");
+			$("#mean").addClass("hidden");
+			$("#min").addClass("hidden");
+			$("#max").addClass("hidden");
 			$("#dist_km").addClass("hidden");
 			$("#dur_s").addClass("hidden");
 			$("#waiting").removeClass("hidden");
@@ -965,104 +971,16 @@ function query_result(json){
 			$("#samples-chart").removeClass("hidden");
 			samples_chart.validateData();
 			// Update map
-			marker.removeFrom(map); // Remove marker
-			route.removeFrom(map);
-			marker = L.marker(data_map[data_map.length-1]).addTo(map); // Add marker
-			route = L.polyline(data_map).addTo(map);
-			map.setView(data_map[data_map.length-1]); // Center view, but not zoom
-		}
-		// temp_c
-		if (json['results']['4']['series'] && json['results']['4']['series']['0']['values']['0']['2']){
-			$("#mean").removeClass("hidden");
-			$("#min").removeClass("hidden");
-			$("#max").removeClass("hidden");
-			$("#mean_temp_c").removeClass("hidden");
-			$("#min_temp_c").removeClass("hidden");
-			$("#max_temp_c").removeClass("hidden");
-			
-			// 3 sec
-			if (json['results']['1']['series']) {
-				if (json['results']['1']['series']['0']['values']) {
-					$("#min_temp_c_3s").html(temp_c(json['results']['1']['series']['0']['values']['0']['1']))
-					$("#mean_temp_c_3s").html(temp_c(json['results']['1']['series']['0']['values']['0']['2']))
-					$("#max_temp_c_3s").html(temp_c(json['results']['1']['series']['0']['values']['0']['3']))
-				}
-			}
-			// 1 min
-			if (json['results']['2']['series']) {
-				if (json['results']['2']['series']['0']['values']) {
-					$("#min_temp_c_1m").html(temp_c(json['results']['2']['series']['0']['values']['0']['1']))
-					$("#mean_temp_c_1m").html(temp_c(json['results']['2']['series']['0']['values']['0']['2']))
-					$("#max_temp_c_1m").html(temp_c(json['results']['2']['series']['0']['values']['0']['3']))
-				}
-			}
-			// 5 min
-			if (json['results']['3']['series']) {
-				if (json['results']['3']['series']['0']['values']) {
-					$("#min_temp_c_5m").html(temp_c(json['results']['3']['series']['0']['values']['0']['1']))
-					$("#mean_temp_c_5m").html(temp_c(json['results']['3']['series']['0']['values']['0']['2']))
-					$("#max_temp_c_5m").html(temp_c(json['results']['3']['series']['0']['values']['0']['3']))
-				}
-			}
-			// 10 min
-			if (json['results']['4']['series']) {
-				if (json['results']['4']['series']['0']['values']) {
-					$("#min_temp_c_10m").html(temp_c(json['results']['4']['series']['0']['values']['0']['1']))
-					$("#mean_temp_c_10m").html(temp_c(json['results']['4']['series']['0']['values']['0']['2']))
-					$("#max_temp_c_10m").html(temp_c(json['results']['4']['series']['0']['values']['0']['3']))
-				}
-			}
-		}
-		// spd_kph
-		if (json['results']['8']['series'] && json['results']['8']['series']['0']['values']['0']['2']){
-			$("#mean").removeClass("hidden");
-			$("#min").removeClass("hidden");
-			$("#max").removeClass("hidden");
-			$("#mean_spd_kph").removeClass("hidden");
-			$("#min_spd_kph").removeClass("hidden");
-			$("#max_spd_kph").removeClass("hidden");
-			if (!show_chart_spd_kph) {
-				chart_spd_kph();
-				show_chart_spd_kph = true;
-			}
-			// 3 sec
-			if (json['results']['5']['series']) {
-				if (json['results']['5']['series']['0']['values']) {
-					$("#min_spd_kph_3s").html(spd_kph(json['results']['5']['series']['0']['values']['0']['1']))
-					$("#mean_spd_kph_3s").html(spd_kph(json['results']['5']['series']['0']['values']['0']['2']))
-					$("#max_spd_kph_3s").html(spd_kph(json['results']['5']['series']['0']['values']['0']['3']))
-				}
-			}
-			// 1 min
-			if (json['results']['6']['series']) {
-				if (json['results']['6']['series']['0']['values']) {
-					$("#min_spd_kph_1m").html(spd_kph(json['results']['6']['series']['0']['values']['0']['1']))
-					$("#mean_spd_kph_1m").html(spd_kph(json['results']['6']['series']['0']['values']['0']['2']))
-					$("#max_spd_kph_1m").html(spd_kph(json['results']['6']['series']['0']['values']['0']['3']))
-				}
-			}
-			// 5 min
-			if (json['results']['7']['series']) {
-				if (json['results']['7']['series']['0']['values']) {
-					$("#min_spd_kph_5m").html(spd_kph(json['results']['7']['series']['0']['values']['0']['1']))
-					$("#mean_spd_kph_5m").html(spd_kph(json['results']['7']['series']['0']['values']['0']['2']))
-					$("#max_spd_kph_5m").html(spd_kph(json['results']['7']['series']['0']['values']['0']['3']))
-				}
-			}
-			// 10 min
-			if (json['results']['8']['series']) {
-				if (json['results']['8']['series']['0']['values']) {
-					$("#min_spd_kph_10m").html(spd_kph(json['results']['8']['series']['0']['values']['0']['1']))
-					$("#mean_spd_kph_10m").html(spd_kph(json['results']['8']['series']['0']['values']['0']['2']))
-					$("#max_spd_kph_10m").html(spd_kph(json['results']['8']['series']['0']['values']['0']['3']))
-				}
+			if (data_map.length) {
+				marker.removeFrom(map); // Remove marker
+				route.removeFrom(map);
+				marker = L.marker(data_map[data_map.length-1]).addTo(map); // Add marker
+				route = L.polyline(data_map).addTo(map);
+				map.setView(data_map[data_map.length-1]); // Center view, but not zoom
 			}
 		}
 		// alt_m
 		if (json['results']['12']['series'] && json['results']['12']['series']['0']['values']['0']['2']){
-			$("#mean").removeClass("hidden");
-			$("#min").removeClass("hidden");
-			$("#max").removeClass("hidden");
 			$("#mean_alt_m").removeClass("hidden");
 			$("#min_alt_m").removeClass("hidden");
 			$("#max_alt_m").removeClass("hidden");
@@ -1103,11 +1021,89 @@ function query_result(json){
 				}
 			}
 		}
+		// temp_c
+		if (json['results']['4']['series'] && json['results']['4']['series']['0']['values']['0']['2']){
+			$("#mean_temp_c").removeClass("hidden");
+			$("#min_temp_c").removeClass("hidden");
+			$("#max_temp_c").removeClass("hidden");
+			
+			// 3 sec
+			if (json['results']['1']['series']) {
+				if (json['results']['1']['series']['0']['values']) {
+					$("#min_temp_c_3s").html(temp_c(json['results']['1']['series']['0']['values']['0']['1']))
+					$("#mean_temp_c_3s").html(temp_c(json['results']['1']['series']['0']['values']['0']['2']))
+					$("#max_temp_c_3s").html(temp_c(json['results']['1']['series']['0']['values']['0']['3']))
+				}
+			}
+			// 1 min
+			if (json['results']['2']['series']) {
+				if (json['results']['2']['series']['0']['values']) {
+					$("#min_temp_c_1m").html(temp_c(json['results']['2']['series']['0']['values']['0']['1']))
+					$("#mean_temp_c_1m").html(temp_c(json['results']['2']['series']['0']['values']['0']['2']))
+					$("#max_temp_c_1m").html(temp_c(json['results']['2']['series']['0']['values']['0']['3']))
+				}
+			}
+			// 5 min
+			if (json['results']['3']['series']) {
+				if (json['results']['3']['series']['0']['values']) {
+					$("#min_temp_c_5m").html(temp_c(json['results']['3']['series']['0']['values']['0']['1']))
+					$("#mean_temp_c_5m").html(temp_c(json['results']['3']['series']['0']['values']['0']['2']))
+					$("#max_temp_c_5m").html(temp_c(json['results']['3']['series']['0']['values']['0']['3']))
+				}
+			}
+			// 10 min
+			if (json['results']['4']['series']) {
+				if (json['results']['4']['series']['0']['values']) {
+					$("#min_temp_c_10m").html(temp_c(json['results']['4']['series']['0']['values']['0']['1']))
+					$("#mean_temp_c_10m").html(temp_c(json['results']['4']['series']['0']['values']['0']['2']))
+					$("#max_temp_c_10m").html(temp_c(json['results']['4']['series']['0']['values']['0']['3']))
+				}
+			}
+		}
+		// spd_kph
+		if (json['results']['8']['series'] && json['results']['8']['series']['0']['values']['0']['2']){
+			$("#mean_spd_kph").removeClass("hidden");
+			$("#min_spd_kph").removeClass("hidden");
+			$("#max_spd_kph").removeClass("hidden");
+			if (!show_chart_spd_kph) {
+				chart_spd_kph();
+				show_chart_spd_kph = true;
+			}
+			// 3 sec
+			if (json['results']['5']['series']) {
+				if (json['results']['5']['series']['0']['values']) {
+					$("#min_spd_kph_3s").html(spd_kph(json['results']['5']['series']['0']['values']['0']['1']))
+					$("#mean_spd_kph_3s").html(spd_kph(json['results']['5']['series']['0']['values']['0']['2']))
+					$("#max_spd_kph_3s").html(spd_kph(json['results']['5']['series']['0']['values']['0']['3']))
+				}
+			}
+			// 1 min
+			if (json['results']['6']['series']) {
+				if (json['results']['6']['series']['0']['values']) {
+					$("#min_spd_kph_1m").html(spd_kph(json['results']['6']['series']['0']['values']['0']['1']))
+					$("#mean_spd_kph_1m").html(spd_kph(json['results']['6']['series']['0']['values']['0']['2']))
+					$("#max_spd_kph_1m").html(spd_kph(json['results']['6']['series']['0']['values']['0']['3']))
+				}
+			}
+			// 5 min
+			if (json['results']['7']['series']) {
+				if (json['results']['7']['series']['0']['values']) {
+					$("#min_spd_kph_5m").html(spd_kph(json['results']['7']['series']['0']['values']['0']['1']))
+					$("#mean_spd_kph_5m").html(spd_kph(json['results']['7']['series']['0']['values']['0']['2']))
+					$("#max_spd_kph_5m").html(spd_kph(json['results']['7']['series']['0']['values']['0']['3']))
+				}
+			}
+			// 10 min
+			if (json['results']['8']['series']) {
+				if (json['results']['8']['series']['0']['values']) {
+					$("#min_spd_kph_10m").html(spd_kph(json['results']['8']['series']['0']['values']['0']['1']))
+					$("#mean_spd_kph_10m").html(spd_kph(json['results']['8']['series']['0']['values']['0']['2']))
+					$("#max_spd_kph_10m").html(spd_kph(json['results']['8']['series']['0']['values']['0']['3']))
+				}
+			}
+		}
 		// hr_bpm
 		if (json['results']['16']['series'] && json['results']['16']['series']['0']['values']['0']['2']){
-			$("#mean").removeClass("hidden");
-			$("#min").removeClass("hidden");
-			$("#max").removeClass("hidden");
 			$("#mean_hr_bpm").removeClass("hidden");
 			$("#min_hr_bpm").removeClass("hidden");
 			$("#max_hr_bpm").removeClass("hidden");
@@ -1150,9 +1146,6 @@ function query_result(json){
 		}
 		// cad_rpm
 		if (json['results']['20']['series'] && json['results']['20']['series']['0']['values']['0']['2']){
-			$("#mean").removeClass("hidden");
-			$("#min").removeClass("hidden");
-			$("#max").removeClass("hidden");
 			$("#mean_cad_rpm").removeClass("hidden");
 			$("#min_cad_rpm").removeClass("hidden");
 			$("#max_cad_rpm").removeClass("hidden");
