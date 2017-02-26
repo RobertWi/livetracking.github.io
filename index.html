@@ -6,7 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Live Tracking - livetracking.io</title>
+<link rel="apple-touch-icon" href="https://livetracking.io/touchicon.png">
+<link rel="shortcut icon" href="https://livetracking.io/favicon.ico">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://livetracking.io/font/style.css">
 </head>
 <body>
 <nav class="navbar navbar-default navbar-static-top">
@@ -18,17 +22,21 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/">livetracking.io</a>
+			<a class="navbar-brand" href="/">
+				<i class="fa icon-livetracking" aria-hidden="true"></i>
+				livetracking.io
+			</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="https://my.livetracking.io/dashboard">Login</a></li>
-				<li><a href="https://my.livetracking.io/register"><b>Register</b></a></li>
-			</ul>
+						<ul class="nav navbar-nav navbar-right">
+									<li><a href="https://my.livetracking.io/dashboard"><i class="fa fa-key" aria-hidden="true"></i> Login</a></li>
+					<li><a href="https://my.livetracking.io/register"><i class="fa fa-sign-in" aria-hidden="true"></i> <b>Register</b></a></li>
+							</ul>
 		</div>
 	</div>
 </nav>
 <div class="container">
+
 
 <div class="jumbotron">
 
@@ -41,12 +49,12 @@
 </p>
 
 <p>
-	<a href="demo.html" class="btn btn-primary btn-lg" role="button">
-		<span class="glyphicon glyphicon-play" aria-hidden="true"></span>
+	<a href="https://my.livetracking.io/public/demo" class="btn btn-primary btn-lg" role="button">
+		<i class="fa fa-play fa-fw" aria-hidden="true"></i>
 		Demo
 	</a>
 	<a href="https://my.livetracking.io/register" class="btn btn-success btn-lg" role="button">
-		<span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+		<i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>
 		Register
 	</a>
 
@@ -79,11 +87,13 @@ Each user comes with his own InfluxDB database.
 Only you as an owner can write to the database.
 You can give other users read rights to your live tracking database.
 Currently you can save 8 hours of data.
+</p>
+
 
 <hr>
 <footer>
 	<p class="text-muted">
-		&copy; Nils Knieling
+		&copy; 2017 <a href="https://github.com/Cyclenerd">Nils Knieling</a>
 		|
 		This Software is <a href="https://github.com/livetracking">Open Source</a>
 		|
@@ -96,7 +106,6 @@ Currently you can save 8 hours of data.
 		<a href="https://livetracking.io/imprint.html">Imprint</a>
 	</p>
 </footer>
-
 </div> <!-- // container -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
