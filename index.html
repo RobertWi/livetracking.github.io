@@ -62,6 +62,61 @@
 </div> <!-- // jumbotron -->
 
 <div class="page-header">
+	<h2>Input</h2>
+</div>
+
+<p>
+With the <i class="fa fa-android" aria-hidden="true"></i> <strong>Android</strong> app <a href="http://www.iforpowell.com/">IpBike</a> you can transfer your data in real time.
+Deposit your access data in <code>Settings</code> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <code>Upload settings</code> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <code>livetracking.io</code>.
+The app supports ANT+ and Bluetooth sensors.
+You can transfer your <strong>speed</strong>, <strong>heart rate</strong>, <strong>cadence</strong> and <strong>power</strong> as well as the <strong>GPS</strong> coordinates.
+</p>
+
+<p>
+	<a href="https://play.google.com/store/apps/details?id=com.iforpowell.android.ipbike" class="btn btn-default" role="button">
+		<i class="fa fa-google" aria-hidden="true"></i>
+		Download IpBike
+	</a>
+</p>
+
+<div class="page-header">
+	<h2>Output</h2>
+</div>
+
+<p>
+livetracking.io is very much based on <a href="https://www.influxdata.com/">InfluxDB</a>.
+So you have all the advantages of a very fast time series database.
+It aims to answer queries in real-time.
+Each user comes with his own InfluxDB database for live tracking.
+Only you as an owner can write to the database.
+You can give other users read rights to your live tracking database.
+Currently you can save 8 hours of data.
+</p>
+
+<p>
+<i class="fa fa-eye" aria-hidden="true"></i>
+If you make your profile public, anyone can view your data at the following URL: <code>https://my.livetracking.io/public/YOUR-USERNAME</code>
+</p>
+
+<p>
+<i class="fa fa-eye-slash" aria-hidden="true"></i>
+If your profile is not public, your friends can view your data at the following URL:
+<code>https://my.livetracking.io/watch/YOUR-USERNAME</code>
+</p>
+
+<p>
+Because you have your own InfluxDB database, you can also use other evaluation programs.
+A popular program is e.g. <a href="http://docs.grafana.org/features/datasources/influxdb/">Grafana</a>.
+Use the URL <code>https://output.livetracking.io</code> and the database name <code>YOUR-USERNAME</code>.
+
+<p>
+	<a href="https://my.livetracking.io/public/demo" class="btn btn-default" role="button">
+		<i class="fa fa-play" aria-hidden="true"></i>
+		Public demo
+	</a>
+</p>
+
+<div class="page-header">
 	<h2>Developers Welcome</h2>
 </div>
 
@@ -70,23 +125,6 @@ You can use livetracking.io as the back end for live tracking.
 It is very easy to integrate into existing apps.
 The transfer is done via an HTTP API.
 You will find more details in the <a href="https://github.com/livetracking/livetracking/wiki">documentation</a>.
-</p>
-
-<div class="page-header">
-	<h2>Features</h2>
-</div>
-
-<p>
-This application is very much based on InfluxDB. So you have all the advantages of a very fast time series database.
-It aims to answer queries in real-time.
-That means every data point is indexed as it comes in and is immediately available in queries that should return in less than 100ms.
-</p>
-
-<p>
-Each user comes with his own InfluxDB database.
-Only you as an owner can write to the database.
-You can give other users read rights to your live tracking database.
-Currently you can save 8 hours of data.
 </p>
 
 
@@ -104,6 +142,12 @@ Currently you can save 8 hours of data.
 		</script>
 		|
 		<a href="https://livetracking.io/imprint.html">Imprint</a>
+		|
+		<a href="https://github.com/livetracking" title="livetracking.io @ GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
+		|
+		<a href="https://www.facebook.com/livetracking.io/" title="livetracking.io @ Facebook"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+		|
+		<a href="https://twitter.com/livetracking_io" title="livetracking.io @ Twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
 	</p>
 </footer>
 </div> <!-- // container -->
