@@ -10,6 +10,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://livetracking.io/font/style.css">
+<style>
+.frontpage-jumbotron-buttons {
+	line-height: 52px;
+}
+</style>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-static-top">
@@ -28,8 +33,20 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 						<ul class="nav navbar-nav navbar-right">
-									<li><a href="https://my.livetracking.io/dashboard"><i class="fa fa-key" aria-hidden="true"></i> Login</a></li>
-					<li><a href="https://my.livetracking.io/register"><i class="fa fa-sign-in" aria-hidden="true"></i> <b>Register</b></a></li>
+									<li>
+						<a href="https://my.livetracking.io/dashboard"
+							title="Enter your username in lowercase">
+							<i class="fa fa-key" aria-hidden="true"></i>
+							Log In
+						</a>
+					</li>
+					<li>
+						<a href="https://my.livetracking.io/register"
+							title="Sign up for free">
+							<i class="fa fa-sign-in" aria-hidden="true"></i>
+							<b>Sign Up</b>
+						</a>
+					</li>
 							</ul>
 		</div>
 	</div>
@@ -48,14 +65,14 @@
 	Optimized for easy use.
 </p>
 
-<p>
+<p class="frontpage-jumbotron-buttons">
 	<a href="https://my.livetracking.io/public/demo" class="btn btn-primary btn-lg" role="button">
 		<i class="fa fa-play fa-fw" aria-hidden="true"></i>
 		Demo
 	</a>
 	<a href="https://my.livetracking.io/register" class="btn btn-success btn-lg" role="button">
 		<i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>
-		Register
+		Sign Up for Free
 	</a>
 
 </p>
