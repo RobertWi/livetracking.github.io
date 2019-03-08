@@ -32,22 +32,15 @@
 			</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
-						<ul class="nav navbar-nav navbar-right">
-									<li>
-						<a href="https://my.livetracking.io/dashboard"
-							title="Enter your username in lowercase">
-							<i class="fa fa-key" aria-hidden="true"></i>
-							Log In
-						</a>
-					</li>
-					<li>
-						<a href="https://my.livetracking.io/register"
-							title="Sign up for free">
-							<i class="fa fa-sign-in" aria-hidden="true"></i>
-							<b>Sign Up</b>
-						</a>
-					</li>
-							</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="https://my.livetracking.io/dashboard"
+						title="Enter your username in lowercase">
+						<i class="fa fa-key" aria-hidden="true"></i>
+						Log In
+					</a>
+				</li>
+			</ul>
 		</div>
 	</div>
 </nav>
@@ -58,120 +51,16 @@
 
 <h1>Live Tracking for Data Nerds</h1>
 <p>
-	livetracking.io is an <b>free</b> and open source <b>live tracking</b> service.
-	It's useful for recording data and performing analytics in <b>real time</b>.
-	You are able to track your time elapsed, distance, speed and elevation in real time.
-	And if you have any ANT+ or Bluetooth sensors, this data can also be transmitted.
-	Optimized for easy use.
+	livetracking.io <b>was</b> a free and open source live tracking service.
 </p>
 
-<p class="frontpage-jumbotron-buttons">
-	<a href="https://my.livetracking.io/public/demo" class="btn btn-primary btn-lg" role="button">
-		<i class="fa fa-play fa-fw" aria-hidden="true"></i>
-		Demo
-	</a>
-	<a href="https://my.livetracking.io/register" class="btn btn-success btn-lg" role="button">
-		<i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>
-		Sign Up for Free
-	</a>
-
-</p>
 </div> <!-- // jumbotron -->
-
-<div class="page-header">
-	<h2>Input</h2>
-</div>
-
-<p>
-With the <strong>Android</strong> app <a href="http://www.iforpowell.com/">IpBike</a> you can transfer your data in real time.
-Deposit your access data in <code>Settings</code> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <code>Upload settings</code> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <code>livetracking.io</code>.
-The app supports <b>ANT+</b> and <b>Bluetooth</b> sensors.
-You can transfer your <strong>speed</strong>, <strong>heart rate</strong>, <strong>cadence</strong> and <strong>power</strong> as well as the <strong>GPS</strong> coordinates.
-</p>
-
-<p>
-	<a href="https://play.google.com/store/apps/details?id=com.iforpowell.android.ipbike" class="btn btn-default" role="button">
-		<i class="fa fa-android" aria-hidden="true"></i>
-		Download
-	</a>
-	<a href="https://www.youtube.com/watch?v=tgOifBgPqaA" class="btn btn-default" role="button">
-		<i class="fa fa-youtube-play fa-fw" aria-hidden="true"></i>
-		How to set up?
-	</a>
-</p>
-
-<div class="page-header">
-	<h2>Output</h2>
-</div>
-
-<p>
-livetracking.io is very much based on <a href="https://www.influxdata.com/">InfluxDB</a>.
-So you have all the advantages of a very fast time series database.
-It aims to answer queries in real-time.
-Each user comes with his own InfluxDB database for live tracking.
-Only you as an owner can write to the database.
-You can give other users read rights to your live tracking database.
-Currently you can save 8 hours of data.
-</p>
-
-<p>
-<i class="fa fa-eye fa-fw" aria-hidden="true"></i>
-If you make your profile public, anyone can view your data at the following URL: <code>https://my.livetracking.io/public/YOUR-USERNAME</code>
-</p>
-
-<p>
-<i class="fa fa-lock fa-fw" aria-hidden="true"></i>
-If your profile is not public, your friends can view your data at the following URL:
-<code>https://my.livetracking.io/watch/YOUR-USERNAME</code>
-</p>
-
-<p>
-Because you have your own InfluxDB database, you can also use other evaluation programs.
-A popular program is e.g. <a href="http://docs.grafana.org/features/datasources/influxdb/">Grafana</a>.
-Use the URL <code>https://output.livetracking.io</code> and the database name <code>YOUR-USERNAME</code>.
-
-<p>
-	<a href="https://my.livetracking.io/public/demo" class="btn btn-default" role="button">
-		<i class="fa fa-play fa-fw" aria-hidden="true"></i>
-		Public Demo
-	</a>
-</p>
-
-<div class="page-header">
-	<h2>Developers Welcome</h2>
-</div>
-
-<p>
-You can use livetracking.io as the back end for live tracking.
-It is very easy to integrate into existing apps.
-The transfer is done via an <b>HTTP API</b>.
-You will find more details in the <a href="https://github.com/livetracking/livetracking/wiki">documentation</a>.
-</p>
-
-<p>
-	<a href="https://github.com/livetracking/livetracking/wiki" class="btn btn-default" role="button">
-		<i class="fa fa-github fa-fw" aria-hidden="true"></i>
-		API Documentation
-	</a>
-</p>
-
-
 <hr>
 <footer>
 	<p class="text-muted">
-		&copy; 2018 <a href="https://github.com/Cyclenerd">Nils Knieling</a>
-		|
-		This Software is <a href="https://github.com/livetracking">Open Source</a>
-		|
-		<a href="https://github.com/livetracking/livetracking/wiki">API</a>
-		<script>
-			emailE=('in' + 'put' + '@' + 'live' + 'tracking' + '.io')
-			document.write('| <a href="mailto:' + emailE + '">Contact</a>')
-		</script>
+		&copy; 2019 <a href="https://github.com/Cyclenerd">Nils Knieling</a>
 		|
 		<a href="https://livetracking.io/imprint.html">Imprint</a>
-		|
-		<a href="https://github.com/livetracking" title="livetracking.io @ GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
 	</p>
 </footer>
 </div> <!-- // container -->
@@ -179,13 +68,5 @@ You will find more details in the <a href="https://github.com/livetracking/livet
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-1984327-10', 'auto');
-ga('send', 'pageview');
-</script>
 </body>
 </html>
